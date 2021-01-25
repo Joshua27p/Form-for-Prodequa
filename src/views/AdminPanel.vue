@@ -84,7 +84,7 @@ export default {
   },
   methods:{
     async getForms(){
-      const fetchForms = await axios.get('http://localhost:3000/forms')
+      const fetchForms = await axios.get('https://prodequa-form.herokuapp.com/forms')
       this.formsCollection = fetchForms.data.reverse()
       console.log(fetchForms.data)
       return fetchForms

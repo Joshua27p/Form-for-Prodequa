@@ -12,10 +12,10 @@
     </div> 
       <!-- formulario -->
       <!-- para recoger el lo que pase con el submit se utiliza v-on:submit.prevent en la etiqueta  form  -->
-    <form class="w-3/4 mx-auto" v-on:submit.prevent="sendForm();">
+    <form class="w-full mx-auto max-w-4xl" v-on:submit.prevent="sendForm();">
     <!-- contenedor izquierdo -->
-      <div class="flex flex-col md:flex-row justify-center">
-        <div class="flex flex-col">
+      <div class="flex flex-col md:flex-row justify-center md:px-20 p-5">
+        <div class="flex flex-col md:w-1/2">
         <!-- validacion de nombre -->
           <div class="mb-3 md:mx-2">
             <input v-bind:class="[invalid['name'].length > 0 ? 'border-red-400': ' border-blue-600 ']" class="w-full text-xs rounded-lg border-2 p-3" type="text" name="name" placeholder="Nombre y apellido" title="Nombre solo acepta letras y espacios en blanco" v-model="contact.name" @blur="validateText('name')" required>
@@ -39,7 +39,7 @@
         </div>
           <!-- contenedor izquierdo -->
           <!-- contenedor derecho -->
-        <div class="flex flex-col">
+        <div class="flex flex-col md:w-1/2">
           <!-- validación de RUC -->
           <div class="mb-3 md:mx-2">
             <input v-bind:class="[invalid['RUC'].length > 0 ? 'border-red-400': ' border-blue-600 ']" class="w-full text-xs rounded-lg border-2 p-3" type="number" name="RUC" placeholder="Razón social" v-model="contact.RUC" @blur="validateNumber('RUC', 12)" required>
@@ -65,7 +65,7 @@
           </div>
           <!-- contenedor derecho -->
         </div>
-        <div class="flex justify-center">
+        <div v-bind:class="{ 'opacity-20': loading }" class="flex justify-center">
           <input type="submit" class="text-xs font-bold uppercase  bg-red-500 text-white rounded-full w-auto px-10 py-2 mb-10" value="enviar información"/>
         </div>
       </form>
@@ -100,12 +100,14 @@
           information:'',
           message: '' 
         },
+        loading : false
       }
     },
     methods:{
       async sendForm(){
          console.log(this.contact.information)
         // validacion para que el formulario no se envíe por si existe algún error en los datos
+        if(this.loading === true)return
         if(this.invalid['name'] || 
           this.invalid['profession'] ||
           this.invalid['phone'] || 
@@ -114,7 +116,9 @@
           this.invalid['information'] ||
           this.invalid['message']) 
           return console.log('no se envió formulario') 
-        const response = await axios.post('http://localhost:3000/forms', this.contact)
+        this.loading = true
+        const response = await axios.post('https://prodequa-form.herokuapp.com/forms', this.contact)
+        this.loading = false
         localStorage.setItem('success', JSON.stringify(true))
         this.$router.push({path: 'greatings'})
         console.log('se envió formulario')
