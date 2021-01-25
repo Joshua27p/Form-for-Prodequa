@@ -1,0 +1,147 @@
+<template>
+    <!-- Título   -->
+    <div class="relative">
+      <img class="absolute w-52 hidden lg:block" src="../assets/bordeleft.png" alt="borde-left" />
+      <img class="absolute right-0 bottom-0  w-52 hidden lg:block" src="../assets/borderright.png" alt="borde-left" />
+      
+      <h2 class="text-center text-3xl font-bold w-full box-border text-red-600 mt-8 mb-5">CONOZCÁMONOS</h2>
+      <div class="p-7">
+       <p class="text-center">Complete este formulario para contactar con el equipo de profesionales de AimTalent.<br>
+          ¡Evaluaremos la necesidad para ofrecerle una solución alineado a sus expectativas!
+       </p>
+      </div> 
+      <!-- formulario -->
+      <!-- para recoger el lo que pase con el submit se utiliza v-on:submit.prevent en la etiqueta  form  -->
+     <form class="grid grid-cols-1 md:grid-cols-2 w-3/4 md:w-1/2 mx-auto" v-on:submit.prevent="sendForm();">
+        <!-- validacion de texto -->
+        <div class="mb-3 md:mx-2">
+          <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="text" name="name" placeholder="Nombre y apellido" title="Nombre solo acepta letras y espacios en blanco" v-model="contact.name" @blur="validateText('name')" required>
+          <span class="ml-2 text-red-700 text-xs" v-if="invalid['name'].length > 0">*{{this.invalid['name']}}</span>
+        </div>
+        <!-- validación de profesión -->
+        <div class="mb-3 md:mx-2">
+          <input  class="text-xs rounded-lg border-2 border-blue-600 w-full p-3" type="text" name="cargo" placeholder="Cargo" v-model="contact.profession" @blur="validateText('profession')" required>
+          <span  class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['profession'].length > 0">*{{this.invalid['profession']}}</span>
+        </div>
+        <!-- validacion de phone -->
+        <div class="mb-3 md:mx-2">
+          <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="number" name="phone" placeholder="Celular" v-model="contact.phone" @blur="validateNumber('phone', 9)">
+          <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['phone']">*{{this.invalid['phone']}}</span>
+        </div>
+        <!-- validación de Email -->
+        <div class="mb-3 md:mx-2">
+          <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="email" name="email" placeholder="Email" title="Email incorrecto"  required v-model="contact.mail" @blur="validateEmail">
+          <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid.mail.length > 0">*{{this.invalid.mail}}</span>
+        </div>
+        <!-- validación de RUC -->
+        <div class="mb-3 md:mx-2">
+          <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="number" name="RUC" placeholder="Razón social" v-model="contact.RUC" @blur="validateNumber('RUC', 12)" required>
+          <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['RUC']">*{{this.invalid['RUC']}}</span> 
+        </div>
+        <select class="md:mx-2 text-xs rounded-lg border-2 border-blue-600 mb-3 p-2" name="information" placeholder="Indicanos tu necesidad" required v-model="contact.information"> 
+          <option>Atracción y Selección</option>
+          <option>Evaluación Psicolaboral</option>
+          <option>Capacitación & E-Learning</option>
+          <option>Outplacement</option>
+        </select>
+        <!-- validación de message -->
+         <div class="mb-16 md:mx-2">
+          <textarea class="text-xs rounded-lg border-2 border-blue-600 w-full p-2" id="gracias" cols="50" rows="10" placeholder="Mensaje"  v-model="contact.message" @blur="validateMessage" required></textarea>
+          <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid.message.length > 0">*{{this.invalid.message}}</span>
+        </div>
+     
+         <input type="submit" class="md:col-start-1 md:col-end-3 text-xs font-bold uppercase  bg-red-500 text-white rounded-full w-auto px-10 py-2 mb-10 mx-auto" value="enviar información" />
+      </form>
+    </div>
+ 
+</template>
+<script>
+  import axios from 'axios'
+ 
+  export default {
+  
+    data(){
+      return {
+        // objeto que captura lo que escribamos en nuestro input
+      
+        contact: {
+          name: '',
+          profession: '',
+          phone:'',
+          mail: '',
+          RUC: '',
+          information: '',
+          message: '' 
+        },
+        // se utilizó invalid como objeto para poder utilizar sus proppiedades al llamar [value]
+        invalid: {
+          name: '',
+          profession: '',
+          phone:'',
+          mail: '',
+          RUC: '',
+          message: '' 
+        },
+      }
+    },
+    methods:{
+      async sendForm(){
+         console.log(this.contact.information)
+        // validacion para que el formulario no se envíe por si existe algún error en los datos
+        if(this.invalid['name'] || 
+          this.invalid['profession'] ||
+          this.invalid['phone'] || 
+          this.invalid['mail'] ||
+          this.invalid['RUC'] ||
+          this.invalid['message']) 
+          return console.log('no se envió formulario') 
+        const response = await axios.post('http://localhost:3000/forms', this.contact)
+        localStorage.setItem('success', JSON.stringify(true))
+        this.$router.push({path: 'greatings'})
+        console.log('se envió formulario')
+       
+        console.log(response)
+      },
+      // funcion parametralizable para validar texto
+      validateText(value){
+        const expreg = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/
+        if(!expreg.test(this.contact[value])){
+          return this.invalid[value] = `${value} es invalido`;
+        }
+        if(this.contact[value].length <= 3){
+          return   this.invalid[value] = `${value} debe tener más de 3 letras`;
+        }else{
+          return this.invalid[value] = '';
+        }
+      },
+      validateNumber(value, minNumber){
+        const expreg = /^[0-9]+$/
+        if (!expreg.test(this.contact[value])){
+          return this.invalid[value] = `${value} es invalido`
+        }
+        if (this.contact[value].length !== minNumber){
+          return this.invalid[value] = `${value} debe tener ${minNumber} dígitos `;
+        }else{
+          return this.invalid[value] = '';
+        }
+      },
+      validateEmail(){
+        const expreg = /^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$/
+        if (!expreg.test(this.contact.mail)){
+          return this.invalid.mail = 'Email is invalid'
+        }else{
+          return this.invalid.mail = '';
+        }
+      },
+      validateMessage(){
+        if(this.contact.message.length <= 0){
+         return this.invalid.message = 'Debe escribir un mensaje'       
+        }else{
+          return this.invalid.message = '';
+        }
+      }
+    }
+  
+  }
+</script>
+ 
