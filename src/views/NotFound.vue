@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-52 text-5xl flex-col font-bold text-center ">
     <h2> 404 </h2>
     <h3> page not found </h3>
   </div>

@@ -54,7 +54,7 @@
             </select>
             <!-- validación de message -->
             <div class="mb-16 md:mx-2">
-              <textarea class="text-xs rounded-lg border-2 h-28 border-blue-600 w-full p-2 md:col-span-2" id="gracias" cols="50" rows="10" placeholder="Mensaje"  v-model="contact.message" @blur="validateMessage" required>
+              <textarea class="text-xs rounded-lg border-2 h-28 border-blue-600  p-2 md:col-span-2 w-full" id="gracias" cols="50" rows="10" placeholder="Mensaje"  v-model="contact.message" @blur="validateMessage" required>
               </textarea>
               <h4 class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid.message.length > 0">*{{this.invalid.message}}</h4>
             </div>
