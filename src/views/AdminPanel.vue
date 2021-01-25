@@ -17,53 +17,53 @@
         class=" fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50"
         v-if="toggleModal"
         >
-          <div class="relative mx-auto w-auto max-w-2xl">
+          <div class="relative mx-7 w-auto max-w-2xl break-all	">
             <div
               class="bg-white w-full text-xs font-sans p-3"
             >
-             <div class="grid grid-cols-2 gap-2 py-10 w-3/4 m-auto">
-             <span class="font-bold capitalize">nombre:</span> 
-             <span>{{formSelected.name}}</span>
-             <h3 class="font-bold capitalize">profesion:</h3>
-             <span>{{formSelected.profession}}</span>
-             <h3 class="font-bold capitalize">Celular:</h3>
-             <span>{{formSelected.phone}}</span>
-             <h3 class="font-bold capitalize">Correo</h3>
-             <span>{{formSelected.mail}}</span>
-             <h3 class="font-bold capitalize">Razón Social:</h3>
-             <span>{{formSelected.RUC}}</span>
-             <h3 class="font-bold capitalize">Info:</h3>
-             <span>{{formSelected.information}}</span>
-             <h3 class="font-bold capitalize">mensaje:</h3>
-             <p>{{formSelected.message}}</p>
-          </div>
-          <div class="flex justify-center">
+              <div class="grid grid-cols-2 gap-2 py-10 w-11/12 m-auto">
+              <span class="font-bold capitalize">nombre:</span> 
+              <span>{{formSelected.name}}</span>
+              <h3 class="font-bold capitalize">profesion:</h3>
+              <span>{{formSelected.profession}}</span>
+              <h3 class="font-bold capitalize">Celular:</h3>
+              <span>{{formSelected.phone}}</span>
+              <h3 class="font-bold capitalize">Correo</h3>
+              <span>{{formSelected.mail}}</span>
+              <h3 class="font-bold capitalize">Razón Social:</h3>
+              <span>{{formSelected.RUC}}</span>
+              <h3 class="font-bold capitalize">Info:</h3>
+              <span>{{formSelected.information}}</span>
+              <h3 class="font-bold capitalize">mensaje:</h3>
+              <p>{{formSelected.message}}</p>
+            </div>
+            <div class="flex justify-center">
               <button class="mb-3 rounded-lg bg-green-400 text-white px-6 mt-1 py-2"
                   @click="toggleModal=false"
                   >close</button>
-          </div>
-          </div>
+             </div>
+            </div>
           </div>
           </div>
           <!-- conenedor de nuestors formularios -->
-        <div class="hidden sm:block border-2 border-black rounded-xl w-3/4">
-          <div class="grid grid-cols-2 gap-2 py-10 w-3/4 m-auto">
-            <span class="font-bold">nombre:</span> 
-            <span>{{formSelected.name}}</span>
-            <h3 class="font-bold">profesion:</h3>
-            <span>{{formSelected.profession}}</span>
-            <h3 class="font-bold">Celular:</h3>
-            <span>{{formSelected.phone}}</span>
-            <h3 class="font-bold">Correo</h3>
-            <span>{{formSelected.mail}}</span>
-            <h3 class="font-bold">Razón Social:</h3>
-            <span>{{formSelected.RUC}}</span>
-            <h3 class="font-bold">Info:</h3>
-            <span>{{formSelected.information}}</span>
-            <h3 class="font-bold">mensaje:</h3>
-            <p>{{formSelected.message}}</p>
+          <div class="hidden sm:block border-2 border-black rounded-xl w-3/4">
+            <div class="grid grid-cols-2 gap-2 py-10 w-3/4 m-auto">
+              <span class="font-bold">nombre:</span> 
+              <span>{{formSelected.name}}</span>
+              <h3 class="font-bold">profesion:</h3>
+              <span>{{formSelected.profession}}</span>
+              <h3 class="font-bold">Celular:</h3>
+              <span>{{formSelected.phone}}</span>
+              <h3 class="font-bold">Correo</h3>
+              <span>{{formSelected.mail}}</span>
+              <h3 class="font-bold">Razón Social:</h3>
+              <span>{{formSelected.RUC}}</span>
+              <h3 class="font-bold">Info:</h3>
+              <span>{{formSelected.information}}</span>
+              <h3 class="font-bold">mensaje:</h3>
+              <p>{{formSelected.message}}</p>
+            </div>
           </div>
-        </div>
         </div>
       <div v-if="toggleModal" class="absolute inset-0 z-40 opacity-25 bg-black"></div>
   </div>
@@ -98,6 +98,7 @@ export default {
     },
     onResize(){
       this.windowWidth = window.innerWidth
+      this.toggleModal = false
       //  console.log('captura de resize')
     }
   },

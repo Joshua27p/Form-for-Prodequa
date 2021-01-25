@@ -9,60 +9,64 @@
        <p class="text-center">Complete este formulario para contactar con el equipo de profesionales de AimTalent.<br>
           ¡Evaluaremos la necesidad para ofrecerle una solución alineado a sus expectativas!
        </p>
-      </div> 
+    </div> 
       <!-- formulario -->
       <!-- para recoger el lo que pase con el submit se utiliza v-on:submit.prevent en la etiqueta  form  -->
-     <form class="w-3/4 mx-auto" v-on:submit.prevent="sendForm();">
-        <!-- contenedor izquierdo -->
-        <div class="flex flex-col md:flex-row justify-center">
-          <div class="flex flex-col">
-            <!-- validacion de nombre -->
-            <div class="mb-3 md:mx-2">
-              <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="text" name="name" placeholder="Nombre y apellido" title="Nombre solo acepta letras y espacios en blanco" v-model="contact.name" @blur="validateText('name')" required>
-              <span class="ml-2 text-red-700 text-xs" v-if="invalid['name'].length > 0">*{{this.invalid['name']}}</span>
-            </div>
-            <!-- validación de profesión -->
-            <div class="mb-3 md:mx-2">
-              <input  class="text-xs rounded-lg border-2 border-blue-600 w-full p-3" type="text" name="cargo" placeholder="Cargo" v-model="contact.profession" @blur="validateText('profession')" required>
-              <span  class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['profession'].length > 0">*{{this.invalid['profession']}}</span>
-            </div>
-            <!-- validacion de phone -->
-            <div class="mb-3 md:mx-2">
-              <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="number" name="phone" placeholder="Celular" v-model="contact.phone" @blur="validateNumber('phone', 9)">
-              <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['phone']">*{{this.invalid['phone']}}</span>
-            </div>
-            <!-- validación de Email -->
-            <div class="mb-3 md:mx-2">
-              <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="email" name="email" placeholder="Email" title="Email incorrecto"  required v-model="contact.mail" @blur="validateEmail">
-              <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid.mail.length > 0">*{{this.invalid.mail}}</span>
-            </div>
+    <form class="w-3/4 mx-auto" v-on:submit.prevent="sendForm();">
+    <!-- contenedor izquierdo -->
+      <div class="flex flex-col md:flex-row justify-center">
+        <div class="flex flex-col">
+        <!-- validacion de nombre -->
+          <div class="mb-3 md:mx-2">
+            <input v-bind:class="[invalid['name'].length > 0 ? 'border-red-400': ' border-blue-600 ']" class="w-full text-xs rounded-lg border-2 p-3" type="text" name="name" placeholder="Nombre y apellido" title="Nombre solo acepta letras y espacios en blanco" v-model="contact.name" @blur="validateText('name')" required>
+            <span class="ml-2 text-red-400 text-xs" v-if="invalid['name'].length > 0">*{{this.invalid['name']}}</span>
           </div>
+          <!-- validación de profesión -->
+          <div class="mb-3 md:mx-2">
+            <input v-bind:class="[invalid['profession'].length > 0 ? 'border-red-400': ' border-blue-600 ']" class="text-xs rounded-lg border-2 w-full p-3" type="text" name="cargo" placeholder="Cargo" v-model="contact.profession" @blur="validateText('profession')" required>
+            <span  class="mb-1 ml-2 text-red-400 text-xs" v-if="invalid['profession'].length > 0">*{{this.invalid['profession']}}</span>
+          </div>
+          <!-- validacion de phone -->
+          <div class="mb-3 md:mx-2">
+            <input v-bind:class="[invalid['phone'].length > 0 ? 'border-red-400': ' border-blue-600 ']" class="w-full text-xs rounded-lg border-2 p-3" type="number" name="phone" placeholder="Celular" v-model="contact.phone" @blur="validateNumber('phone', 9)">
+            <span class="mb-1 ml-2 text-red-400 text-xs" v-if="invalid['phone']">*{{this.invalid['phone']}}</span>
+          </div>
+            <!-- validación de Email -->
+          <div class="mb-3 md:mx-2">
+            <input v-bind:class="[invalid['mail'].length > 0 ? 'border-red-400': ' border-blue-600 ']" class="w-full text-xs rounded-lg border-2 p-3" type="email" name="email" placeholder="Email" title="Email incorrecto"  required v-model="contact.mail" @blur="validateEmail">
+            <span class="mb-1 ml-2 text-red-400 text-xs" v-if="invalid.mail.length > 0">*{{this.invalid.mail}}</span>
+          </div>
+        </div>
           <!-- contenedor izquierdo -->
           <!-- contenedor derecho -->
-          <div class="flex flex-col">
-            <!-- validación de RUC -->
-            <div class="mb-3 md:mx-2">
-              <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="number" name="RUC" placeholder="Razón social" v-model="contact.RUC" @blur="validateNumber('RUC', 12)" required>
-              <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['RUC']">*{{this.invalid['RUC']}}</span> 
-            </div>
+        <div class="flex flex-col">
+          <!-- validación de RUC -->
+          <div class="mb-3 md:mx-2">
+            <input v-bind:class="[invalid['RUC'].length > 0 ? 'border-red-400': ' border-blue-600 ']" class="w-full text-xs rounded-lg border-2 p-3" type="number" name="RUC" placeholder="Razón social" v-model="contact.RUC" @blur="validateNumber('RUC', 12)" required>
+            <span class="mb-1 ml-2 text-red-400 text-xs" v-if="invalid['RUC']">*{{this.invalid['RUC']}}</span> 
+          </div>
             <!-- information  -->
-            <select class="md:mx-2 text-xs rounded-lg border-2 border-blue-600 mb-3 p-2" name="information" placeholder="Indicanos tu necesidad" required v-model="contact.information"> 
+          <div class="md:mx-2 mb-3">
+             <select v-bind:class="[invalid['information'].length > 0 ? 'border-red-400': ' border-blue-600 ']" class="w-full text-xs rounded-lg border-2  p-2" name="information" placeholder="Indicanos tu necesidad" required v-model="contact.information" @blur="validateInformation"> 
               <option>Atracción y Selección</option>
               <option>Evaluación Psicolaboral</option>
               <option>Capacitación & E-Learning</option>
               <option>Outplacement</option>
-            </select>
+             </select>
+             <h4 class="mb-1 ml-2 text-red-400 text-xs" v-if="invalid.information.length > 0">*{{this.invalid.information}}</h4>
+
+          </div>
             <!-- validación de message -->
             <div class="mb-16 md:mx-2">
-              <textarea class="text-xs rounded-lg border-2 h-28 border-blue-600  p-2 md:col-span-2 w-full" id="gracias" cols="50" rows="10" placeholder="Mensaje"  v-model="contact.message" @blur="validateMessage" required>
+              <textarea v-bind:class="[invalid['message'].length > 0 ? 'border-red-400': ' border-blue-600 ']" class="text-xs rounded-lg border-2 h-28 p-2 md:col-span-2 w-full" id="gracias" cols="50" rows="10" placeholder="Mensaje"  v-model="contact.message" @blur="validateMessage" required>
               </textarea>
-              <h4 class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid.message.length > 0">*{{this.invalid.message}}</h4>
+              <h4 class="mb-1 ml-2 text-red-400 text-xs" v-if="invalid.message.length > 0">*{{this.invalid.message}}</h4>
             </div>
           </div>
           <!-- contenedor derecho -->
         </div>
         <div class="flex justify-center">
-            <input type="submit" class="text-xs font-bold uppercase  bg-red-500 text-white rounded-full w-auto px-10 py-2 mb-10" value="enviar información"/>
+          <input type="submit" class="text-xs font-bold uppercase  bg-red-500 text-white rounded-full w-auto px-10 py-2 mb-10" value="enviar información"/>
         </div>
       </form>
     </div>
@@ -93,6 +97,7 @@
           phone:'',
           mail: '',
           RUC: '',
+          information:'',
           message: '' 
         },
       }
@@ -106,6 +111,7 @@
           this.invalid['phone'] || 
           this.invalid['mail'] ||
           this.invalid['RUC'] ||
+          this.invalid['information'] ||
           this.invalid['message']) 
           return console.log('no se envió formulario') 
         const response = await axios.post('http://localhost:3000/forms', this.contact)
@@ -152,6 +158,10 @@
         }else{
           return this.invalid.message = '';
         }
+      },
+      validateInformation(){
+        if(this.contact.information.length <= 0) return this.invalid.information = 'seleccione una opción'
+        else return this.invalid.information = ''
       }
     }
   
