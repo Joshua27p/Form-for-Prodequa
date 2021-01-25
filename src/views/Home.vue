@@ -12,45 +12,58 @@
       </div> 
       <!-- formulario -->
       <!-- para recoger el lo que pase con el submit se utiliza v-on:submit.prevent en la etiqueta  form  -->
-     <form class="grid grid-cols-1 md:grid-cols-2 w-3/4 md:w-1/2 mx-auto" v-on:submit.prevent="sendForm();">
-        <!-- validacion de texto -->
-        <div class="mb-3 md:mx-2">
-          <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="text" name="name" placeholder="Nombre y apellido" title="Nombre solo acepta letras y espacios en blanco" v-model="contact.name" @blur="validateText('name')" required>
-          <span class="ml-2 text-red-700 text-xs" v-if="invalid['name'].length > 0">*{{this.invalid['name']}}</span>
+     <form class="w-3/4 mx-auto" v-on:submit.prevent="sendForm();">
+        <!-- contenedor izquierdo -->
+        <div class="flex flex-col md:flex-row justify-center">
+          <div class="flex flex-col">
+            <!-- validacion de nombre -->
+            <div class="mb-3 md:mx-2">
+              <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="text" name="name" placeholder="Nombre y apellido" title="Nombre solo acepta letras y espacios en blanco" v-model="contact.name" @blur="validateText('name')" required>
+              <span class="ml-2 text-red-700 text-xs" v-if="invalid['name'].length > 0">*{{this.invalid['name']}}</span>
+            </div>
+            <!-- validación de profesión -->
+            <div class="mb-3 md:mx-2">
+              <input  class="text-xs rounded-lg border-2 border-blue-600 w-full p-3" type="text" name="cargo" placeholder="Cargo" v-model="contact.profession" @blur="validateText('profession')" required>
+              <span  class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['profession'].length > 0">*{{this.invalid['profession']}}</span>
+            </div>
+            <!-- validacion de phone -->
+            <div class="mb-3 md:mx-2">
+              <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="number" name="phone" placeholder="Celular" v-model="contact.phone" @blur="validateNumber('phone', 9)">
+              <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['phone']">*{{this.invalid['phone']}}</span>
+            </div>
+            <!-- validación de Email -->
+            <div class="mb-3 md:mx-2">
+              <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="email" name="email" placeholder="Email" title="Email incorrecto"  required v-model="contact.mail" @blur="validateEmail">
+              <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid.mail.length > 0">*{{this.invalid.mail}}</span>
+            </div>
+          </div>
+          <!-- contenedor izquierdo -->
+          <!-- contenedor derecho -->
+          <div class="flex flex-col">
+            <!-- validación de RUC -->
+            <div class="mb-3 md:mx-2">
+              <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="number" name="RUC" placeholder="Razón social" v-model="contact.RUC" @blur="validateNumber('RUC', 12)" required>
+              <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['RUC']">*{{this.invalid['RUC']}}</span> 
+            </div>
+            <!-- information  -->
+            <select class="md:mx-2 text-xs rounded-lg border-2 border-blue-600 mb-3 p-2" name="information" placeholder="Indicanos tu necesidad" required v-model="contact.information"> 
+              <option>Atracción y Selección</option>
+              <option>Evaluación Psicolaboral</option>
+              <option>Capacitación & E-Learning</option>
+              <option>Outplacement</option>
+            </select>
+            <!-- validación de message -->
+            <div class="mb-16 md:mx-2">
+              <textarea class="text-xs rounded-lg border-2 h-28 border-blue-600 w-full p-2 md:col-span-2" id="gracias" cols="50" rows="10" placeholder="Mensaje"  v-model="contact.message" @blur="validateMessage" required>
+              </textarea>
+              <h4 class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid.message.length > 0">*{{this.invalid.message}}</h4>
+            </div>
+          </div>
+          <!-- contenedor derecho -->
         </div>
-        <!-- validación de profesión -->
-        <div class="mb-3 md:mx-2">
-          <input  class="text-xs rounded-lg border-2 border-blue-600 w-full p-3" type="text" name="cargo" placeholder="Cargo" v-model="contact.profession" @blur="validateText('profession')" required>
-          <span  class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['profession'].length > 0">*{{this.invalid['profession']}}</span>
+        <div class="flex justify-center">
+            <input type="submit" class="text-xs font-bold uppercase  bg-red-500 text-white rounded-full w-auto px-10 py-2 mb-10" value="enviar información"/>
         </div>
-        <!-- validacion de phone -->
-        <div class="mb-3 md:mx-2">
-          <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="number" name="phone" placeholder="Celular" v-model="contact.phone" @blur="validateNumber('phone', 9)">
-          <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['phone']">*{{this.invalid['phone']}}</span>
-        </div>
-        <!-- validación de Email -->
-        <div class="mb-3 md:mx-2">
-          <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="email" name="email" placeholder="Email" title="Email incorrecto"  required v-model="contact.mail" @blur="validateEmail">
-          <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid.mail.length > 0">*{{this.invalid.mail}}</span>
-        </div>
-        <!-- validación de RUC -->
-        <div class="mb-3 md:mx-2">
-          <input class="w-full text-xs rounded-lg border-2 border-blue-600 p-3" type="number" name="RUC" placeholder="Razón social" v-model="contact.RUC" @blur="validateNumber('RUC', 12)" required>
-          <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid['RUC']">*{{this.invalid['RUC']}}</span> 
-        </div>
-        <select class="md:mx-2 text-xs rounded-lg border-2 border-blue-600 mb-3 p-2" name="information" placeholder="Indicanos tu necesidad" required v-model="contact.information"> 
-          <option>Atracción y Selección</option>
-          <option>Evaluación Psicolaboral</option>
-          <option>Capacitación & E-Learning</option>
-          <option>Outplacement</option>
-        </select>
-        <!-- validación de message -->
-         <div class="mb-16 md:mx-2">
-          <textarea class="text-xs rounded-lg border-2 border-blue-600 w-full p-2" id="gracias" cols="50" rows="10" placeholder="Mensaje"  v-model="contact.message" @blur="validateMessage" required></textarea>
-          <span class="mb-1 ml-2 text-red-700 text-xs" v-if="invalid.message.length > 0">*{{this.invalid.message}}</span>
-        </div>
-     
-         <input type="submit" class="md:col-start-1 md:col-end-3 text-xs font-bold uppercase  bg-red-500 text-white rounded-full w-auto px-10 py-2 mb-10 mx-auto" value="enviar información" />
       </form>
     </div>
  
