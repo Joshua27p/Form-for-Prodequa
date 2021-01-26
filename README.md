@@ -1,4 +1,4 @@
-**Acerca del Proyecto:**
+**Acerca del Proyecto:** :shipit:
 
 
 Proyecto de formulario para la segunda fase de reclutamiento en Prodequa.
@@ -10,7 +10,7 @@ colleciones y Atlas para subirla a un servidor.
 
 para desplegar la app se utilizó GH PAGES.
 
-- Librerías para el front end:
+- Librerías para el front end: 
 
   - Moment: librería para Fechas
 
