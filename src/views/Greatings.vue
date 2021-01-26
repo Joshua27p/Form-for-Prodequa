@@ -20,9 +20,11 @@
 export default {
   name: "Greatings",
   mounted() {
+    // cuando se monte el componente atrapamos el success  del localStoragesi es falso lo redirecciona a el home 
     const ValidateSucces = JSON.parse(localStorage.getItem('success'))
     if (ValidateSucces !== true) this.$router.push('/')  
   },
+  // cuando se desmonta el componente se remueve 'success' para que no se quede grabado y genere bugs 
   unmounted(){
     localStorage.removeItem('success')
   }
