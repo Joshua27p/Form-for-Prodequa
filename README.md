@@ -26,7 +26,7 @@ para desplegar la app se utilizó GH PAGES.
 
   - nodemon: para que se actualice el server al hacer cualquier cambio
 
--Base de datos
+- Base de datos
 
   - Mongo DB
 
