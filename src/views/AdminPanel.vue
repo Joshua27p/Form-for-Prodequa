@@ -1,10 +1,10 @@
 <template>
-  <div class="bg-gray-100">
-    <h1 class="text-center mb-5 font-semibold p-2 font-helvetica text-gray-800">Bienvenidos<br>
+  <div class="bg-gray-100  h-screen">
+    <h1 class="text-center sm:text-2xl mb-5 font-semibold p-4 font-helvetica text-gray-800">Bienvenidos<br>
     Estos son los formularios</h1>
-    <div class="flex p-3 w-full mx-auto max-w-2xl">
+    <div class="flex p-3 w-full mx-auto max-w-3xl sm:my-24">
       <!-- contenedor de todas las cards -->
-        <div class="p-1 flex flex-col w-full sm:w-auto mr-10 overflow-y-auto h-72">
+        <div class="p-1 flex flex-col w-full h-screen sm:w-auto mr-10 overflow-y-auto sm:h-72">
          <!-- componente cards -->
           <div  class="bg-white shadow-lg  h-auto transition duration-500 ease-in-out text-xs cursor-pointer border-0 hover:bg-indigo-400 hover:text-white rounded-xl mb-2  flex flex-col px-3 py-3" v-for="form in formsCollection" :key="form._id" @click="getFormsData(form); windowWidth < 640 ?toggleModal = !toggleModal : ''">
             <span class="font-bold">{{form.information}}</span>
