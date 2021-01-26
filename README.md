@@ -1,4 +1,5 @@
 Acerca del Proyecto:
+
 Proyecto de formulario para la segunda fase de reclutamiento en Prodequa.
 Un formulario con características parecidas al ejemplo https://aimtalent.pe/es/contacto.
 Este proyecto fue echo con el framework Vue.js , se utilizó Node.js para el Backend subido a heroku, la base de datos fue echa en Mongodb utilizando Compass para la creación de colleciones y Atlas para subirla a un servidor.
