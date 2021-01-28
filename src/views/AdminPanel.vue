@@ -46,7 +46,7 @@
           </div>
           </div>
           <!-- conenedor de nuestors formularios -->
-          <div class="w-8/12 hidden sm:block border-1 shadow-lg text-gray-600 bg-white border-gray-500 rounded-xl w-3/4">
+          <div class="w-8/12 hidden sm:block border-1 shadow-lg text-gray-600 bg-white border-gray-500 rounded-xl">
             <div class="grid grid-cols-2 gap-2 py-10 w-3/4 m-auto">
               <span class="font-bold capitalize">nombre:</span> 
               <span>{{formSelected.name}}</span>
@@ -83,8 +83,10 @@ export default {
     };
   },
   methods:{
+    // peticion al backend para obtener los formualarios
     async getForms(){
       const fetchForms = await axios.get('https://prodequa-form.herokuapp.com/forms')
+      // como los formularios son mostrados por orden, en el UX se quería ver desde el últmo por eso un reverse 
       this.formsCollection = fetchForms.data.reverse()
       console.log(fetchForms.data)
       return fetchForms

@@ -20,7 +20,7 @@
 export default {
   name: "Greatings",
   mounted() {
-    // cuando se monte el componente atrapamos el success  del localStoragesi es falso lo redirecciona a el home 
+    // cuando se monte el componente atrapamos el success  del localStorage si es falso lo redirecciona al home 
     const ValidateSucces = JSON.parse(localStorage.getItem('success'))
     if (ValidateSucces !== true) this.$router.push('/')  
   },
